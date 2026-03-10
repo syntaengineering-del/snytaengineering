@@ -18,17 +18,27 @@ export class AdminPageComponent implements OnInit {
     projects$: Observable<Project[]>;
     showModal = false;
     isSaving = false;
+    isEditMode = false;
+    editingProjectId: string | null = null;
 
-    // New states for uploads
+    // Form Model
+    projectForm: any = {
+        title: '',
+        category: 'commercial',
+        location: '',
+        sqft: '',
+        servicesInput: '',
+        description: ''
+    };
+
+    // States for uploads
     mainImageFile: File | null = null;
     galleryFiles: FileList | null = null;
-    uploadProgress = 0;
 
     constructor(
         private projectService: ProjectService,
         private authService: AuthService
     ) {
-        // Use an observable that combines static data with live data
         this.projects$ = this.projectService.getProjects().pipe(
             map(live => [...this.projectService.getStaticProjects(), ...live]),
             catchError(err => {
@@ -40,9 +50,31 @@ export class AdminPageComponent implements OnInit {
 
     ngOnInit() { }
 
-    openModal() {
-        this.showModal = true;
+    openAddModal() {
+        this.isEditMode = false;
+        this.editingProjectId = null;
         this.resetForm();
+        this.showModal = true;
+    }
+
+    openEditModal(project: Project) {
+        if (!project.id) {
+            alert('Cannot edit static projects. Please create a new project to edit it.');
+            return;
+        }
+        this.isEditMode = true;
+        this.editingProjectId = project.id;
+        this.projectForm = {
+            title: project.title,
+            category: project.category,
+            location: project.location,
+            sqft: project.sqft,
+            servicesInput: project.services.join(', '),
+            description: project.description || ''
+        };
+        this.mainImageFile = null;
+        this.galleryFiles = null;
+        this.showModal = true;
     }
 
     closeModal() {
@@ -50,9 +82,16 @@ export class AdminPageComponent implements OnInit {
     }
 
     resetForm() {
+        this.projectForm = {
+            title: '',
+            category: 'commercial',
+            location: '',
+            sqft: '',
+            servicesInput: '',
+            description: ''
+        };
         this.mainImageFile = null;
         this.galleryFiles = null;
-        this.uploadProgress = 0;
     }
 
     onMainImageSelected(event: any) {
@@ -63,19 +102,18 @@ export class AdminPageComponent implements OnInit {
         this.galleryFiles = event.target.files;
     }
 
-    async onAddProject(projectData: any) {
-        if (!this.mainImageFile) {
-            alert('Please select a main image first.');
-            return;
-        }
-
+    async onSaveProject() {
         this.isSaving = true;
         try {
-            // 1. Upload Main Image
-            const mainImageUrl = await this.projectService.uploadFile(this.mainImageFile);
+            let mainImageUrl = '';
+            let galleryUrls: string[] = [];
 
-            // 2. Upload Gallery Images (if any)
-            const galleryUrls: string[] = [mainImageUrl]; // Start with main image
+            // 1. Handle Main Image Upload
+            if (this.mainImageFile) {
+                mainImageUrl = await this.projectService.uploadFile(this.mainImageFile);
+            }
+
+            // 2. Handle Gallery Uploads
             if (this.galleryFiles && this.galleryFiles.length > 0) {
                 for (let i = 0; i < this.galleryFiles.length; i++) {
                     const url = await this.projectService.uploadFile(this.galleryFiles[i]);
@@ -83,28 +121,48 @@ export class AdminPageComponent implements OnInit {
                 }
             }
 
-            const services = projectData.servicesInput
-                ? projectData.servicesInput.split(',').map((s: string) => s.trim())
+            const services = this.projectForm.servicesInput
+                ? this.projectForm.servicesInput.split(',').map((s: string) => s.trim())
                 : [];
 
-            // 3. Create Project Record
-            const newProject: Project = {
-                title: projectData.title,
-                category: projectData.category,
-                mainImage: mainImageUrl,
-                images: galleryUrls,
-                location: projectData.location,
-                sqft: projectData.sqft,
+            const projectData: any = {
+                title: this.projectForm.title,
+                category: this.projectForm.category,
+                location: this.projectForm.location,
+                sqft: this.projectForm.sqft,
                 services: services,
-                description: projectData.description || ''
+                description: this.projectForm.description
             };
 
-            await this.projectService.addProject(newProject);
-            alert('Project added successfully with uploaded images!');
+            if (mainImageUrl) projectData.mainImage = mainImageUrl;
+            if (galleryUrls.length > 0) {
+                // If we have a new main but no gallery, gallery should at least contain main
+                if (galleryUrls.length === 0 && mainImageUrl) galleryUrls = [mainImageUrl];
+                projectData.images = galleryUrls;
+            }
+
+            if (this.isEditMode && this.editingProjectId) {
+                await this.projectService.updateProject(this.editingProjectId, projectData);
+                alert('Project updated successfully!');
+            } else {
+                // Validation for new project
+                if (!mainImageUrl) {
+                    alert('Main image is required for new projects.');
+                    this.isSaving = false;
+                    return;
+                }
+                if (galleryUrls.length === 0) galleryUrls = [mainImageUrl];
+                projectData.mainImage = mainImageUrl;
+                projectData.images = galleryUrls;
+
+                await this.projectService.addProject(projectData);
+                alert('Project added successfully!');
+            }
+
             this.closeModal();
         } catch (err: any) {
             console.error(err);
-            alert('Upload Error: ' + err.message);
+            alert('Save Error: ' + err.message);
         } finally {
             this.isSaving = false;
         }

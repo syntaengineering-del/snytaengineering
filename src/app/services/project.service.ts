@@ -4,6 +4,7 @@ import {
     collection,
     doc,
     addDoc,
+    setDoc,
     deleteDoc,
     getDocs,
     query
@@ -50,6 +51,12 @@ export class ProjectService {
     addProject(project: Project): Promise<any> {
         const projectsRef = collection(this.firestore, this.projectsPath);
         return addDoc(projectsRef, project);
+    }
+
+    // Update an existing project
+    updateProject(id: string, project: Partial<Project>): Promise<void> {
+        const docRef = doc(this.firestore, `${this.projectsPath}/${id}`);
+        return setDoc(docRef, project, { merge: true });
     }
 
     // Upload a single file and return URL
