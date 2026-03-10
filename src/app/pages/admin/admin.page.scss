@@ -1,0 +1,197 @@
+.admin-hero {
+    background: var(--secondary-color);
+    padding: 120px 0 60px;
+    color: white;
+
+    .hero-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 30px;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+
+        .green {
+            color: var(--primary-color);
+        }
+    }
+
+    p {
+        opacity: 0.7;
+    }
+
+    .hero-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .logout-btn {
+        background: transparent;
+        border: 1px solid #ff4d4d;
+        color: #ff4d4d;
+
+        &:hover {
+            background: #ff4d4d;
+            color: white;
+        }
+    }
+}
+
+.project-list {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+        text-align: left;
+        padding: 15px;
+        background: #f8f9fa;
+        color: var(--secondary-color);
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
+    td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        font-size: 0.95rem;
+    }
+
+    .table-thumb {
+        width: 60px;
+        height: 40px;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+
+    .badge {
+        background: #f0f0f0;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .delete-btn {
+        background: none;
+        border: none;
+        color: #ff4d4d;
+        font-weight: 700;
+        cursor: pointer;
+        padding: 5px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// Modal Styles
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modal-card {
+    background: white;
+    width: 100%;
+    max-width: 650px;
+    border-radius: 12px;
+    padding: 40px;
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+
+        h2 {
+            margin: 0;
+            text-transform: uppercase;
+
+            .green {
+                color: var(--primary-color);
+            }
+        }
+
+        .close-btn {
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        label {
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--secondary-color);
+        }
+
+        input,
+        select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+    }
+
+    .modal-footer {
+        margin-top: 30px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+
+        .secondary {
+            background: #eee;
+            color: #333;
+
+            &:hover {
+                background: #ddd;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}

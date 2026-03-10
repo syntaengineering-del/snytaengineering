@@ -18,7 +18,6 @@ export class ProjectsPageComponent implements OnInit {
     projects$: Observable<Project[]> = of([]);
     loading = true;
     error: string | null = null;
-    seeding = false;
 
     // Gallery State
     showGallery = false;
@@ -30,13 +29,10 @@ export class ProjectsPageComponent implements OnInit {
     constructor(private projectService: ProjectService) { }
 
     ngOnInit() {
-        console.log('ProjectsPageComponent initialized. Fetching projects...');
         this.projects$ = this.projectService.getProjects().pipe(
             map(projects => {
                 this.loading = false;
-                console.log('Firestore projects received:', projects);
                 if (projects.length === 0) {
-                    console.log('Firestore is empty, showing static projects.');
                     return this.staticProjects;
                 }
                 return projects;
@@ -44,7 +40,7 @@ export class ProjectsPageComponent implements OnInit {
             catchError(err => {
                 console.error('Firestore Fetch Error:', err);
                 this.loading = false;
-                this.error = 'Failed to connect to Firebase. Using local backup. Please check your Firestore rules.';
+                this.error = 'Failed to load projects. Using backup data.';
                 return of(this.staticProjects);
             })
         );
@@ -87,23 +83,6 @@ export class ProjectsPageComponent implements OnInit {
         if (event) event.stopPropagation();
         if (this.selectedProject && this.selectedProject.images) {
             this.currentImageIndex = (this.currentImageIndex - 1 + this.selectedProject.images.length) % this.selectedProject.images.length;
-        }
-    }
-
-    async seedData() {
-        if (confirm('Are you sure you want to seed static data to Firebase?')) {
-            this.seeding = true;
-            try {
-                console.log('Attempting to seed data to Firestore...');
-                await this.projectService.seedInitialData(this.staticProjects);
-                console.log('Seed successful!');
-                alert('Data seeded successfully! It should appear in the grid shortly.');
-            } catch (err: any) {
-                console.error('Seed Error:', err);
-                alert('Error seeding data: ' + (err.message || 'Check Firestore Rules'));
-            } finally {
-                this.seeding = false;
-            }
         }
     }
 

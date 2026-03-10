@@ -1,0 +1,95 @@
+<section class="admin-hero">
+    <div class="container">
+        <div class="hero-flex">
+            <div>
+                <h1>Project <span class="green">Management</span></h1>
+                <p>Welcome to the Admin Dashboard. Manage your portfolio here.</p>
+            </div>
+            <div class="hero-actions">
+                <button (click)="openModal()" class="btn">+ Add Project</button>
+                <button (click)="logout()" class="btn logout-btn">Logout</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="admin-content section-padding">
+    <div class="container">
+        <div class="project-list">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Location</th>
+                            <th>Sq Ft</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of projects$ | async">
+                            <td><img [src]="p.mainImage" alt="project" class="table-thumb"></td>
+                            <td><strong>{{ p.title }}</strong></td>
+                            <td><span class="badge">{{ p.category }}</span></td>
+                            <td>{{ p.location }}</td>
+                            <td>{{ p.sqft }}</td>
+                            <td>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add Modal -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>New <span class="green">Project</span></h2>
+            <button class="close-btn" (click)="closeModal()">&times;</button>
+        </div>
+        <form #addForm="ngForm" (submit)="onAddProject(addForm.value)">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" name="title" ngModel required placeholder="Project Name">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" ngModel="commercial" required>
+                        <option value="commercial">Commercial</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="education">Education</option>
+                        <option value="residential">Residential</option>
+                        <option value="industrial">Industrial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Main Image URL</label>
+                    <input type="text" name="mainImage" ngModel required placeholder="assets/images/...">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" name="location" ngModel required placeholder="e.g. New York, NY">
+                </div>
+                <div class="form-group">
+                    <label>Square Footage</label>
+                    <input type="text" name="sqft" ngModel required placeholder="250,000 sq ft">
+                </div>
+                <div class="form-group">
+                    <label>Services (comma separated)</label>
+                    <input type="text" name="servicesInput" ngModel required placeholder="Mechanical, Electrical">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="closeModal()" class="btn secondary">Cancel</button>
+                <button type="submit" class="btn" [disabled]="!addForm.valid">Save Project</button>
+            </div>
+        </form>
+    </div>
+</div>

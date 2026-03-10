@@ -51,22 +51,6 @@
         line-height: 1.8;
         max-width: 650px;
     }
-
-    .seed-btn {
-        margin-top: 30px;
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        color: white;
-        padding: 5px 15px;
-        font-size: 0.7rem;
-        cursor: pointer;
-        border-radius: 4px;
-        transition: all 0.3s;
-
-        &:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-    }
 }
 
 @keyframes fadeInUp {

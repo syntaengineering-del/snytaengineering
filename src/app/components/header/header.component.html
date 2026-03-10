@@ -41,7 +41,7 @@
 <div class="side-menu" [class.active]="menuActive">
     <div class="side-menu-header">
         <div class="side-logo">
-                     <span class="logo-white">SynTa</span>
+            <span class="logo-white">SynTa</span>
             <span class="logo-green">Engineering</span>
         </div>
         <button class="close-btn" (click)="toggleMenu()">
@@ -107,6 +107,15 @@
                 <line x1="12" y1="8" x2="12.01" y2="8"></line>
             </svg>
             About Us
+        </a>
+
+        <a routerLink="/admin" (click)="toggleMenu()" routerLinkActive="active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0110 0v4"></path>
+            </svg>
+            Admin Panel
         </a>
 
         <a routerLink="/contact" (click)="toggleMenu()" routerLinkActive="active">
