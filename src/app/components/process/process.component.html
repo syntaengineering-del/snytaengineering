@@ -1,0 +1,19 @@
+<section class="process section-padding">
+    <div class="container">
+        <h2>Our <span class="green">Process</span></h2>
+        <p class="section-subtitle">
+            A proven, structured approach to delivering engineering excellence from
+            initial concept through project completion.
+        </p>
+        <div class="process-timeline">
+            <div class="process-step" *ngFor="let step of steps; let i = index">
+                <div class="step-number">{{ step.number }}</div>
+                <div class="step-content">
+                    <h3>{{ step.title }}</h3>
+                    <p>{{ step.description }}</p>
+                </div>
+                <div class="step-connector" *ngIf="i < steps.length - 1"></div>
+            </div>
+        </div>
+    </div>
+</section>

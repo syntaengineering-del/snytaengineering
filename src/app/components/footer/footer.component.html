@@ -1,0 +1,51 @@
+<footer>
+    <div class="container footer-grid">
+        <div class="footer-info">
+            <div class="footer-logo">
+                <span class="white">SynTa</span>
+                <span class="green">Engineering Inc</span>
+            </div>
+            <p>
+                Providing cutting-edge MEP engineering solutions with a focus on
+                sustainability, efficiency, and reliability for commercial and
+                residential projects.
+            </p>
+        </div>
+
+        <div class="footer-services">
+            <h3>Our Services</h3>
+            <ul>
+                <li><a href="/mechanical">Mechanical Engineering</a></li>
+                <li><a href="/electrical">Electrical Engineering</a></li>
+                <li><a href="/plumbing">Plumbing Engineering</a></li>
+                <li><a href="/fire-sprinklers">Fire Sprinkler Design</a></li>
+                <li><a href="/fire-alarm">Fire Alarm Design</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-locations">
+            <h3>Contact Us</h3>
+            <ul>
+                <li><strong>Main Office:</strong> 123 Engineering Pl, Suite 100</li>
+                <li><strong>Phone:</strong> (123) 456-7890</li>
+                <li><strong>Email:</strong> info&#64;syntaengineering.com</li>
+            </ul>
+        </div>
+
+        <div class="footer-quote">
+            <h3>Request a Quote</h3>
+            <form (submit)="$event.preventDefault()">
+                <input type="text" placeholder="Full Name" required />
+                <input type="email" placeholder="Email Address" required />
+                <textarea placeholder="Tell us about your project" rows="3"></textarea>
+                <button type="submit" class="btn">Send Request</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="container">
+            <p>&copy; 2024 SynTa Engineering Inc. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>

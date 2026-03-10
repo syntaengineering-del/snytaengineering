@@ -1,0 +1,106 @@
+.process {
+    background: var(--secondary-color);
+    color: white;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+
+    &::after {
+        background: var(--primary-color);
+    }
+}
+
+.green {
+    color: var(--primary-color);
+}
+
+.section-subtitle {
+    text-align: center;
+    max-width: 700px;
+    margin: -30px auto 60px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.05rem;
+}
+
+.process-timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    position: relative;
+}
+
+.process-step {
+    text-align: center;
+    position: relative;
+    padding: 0 15px;
+
+    .step-number {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: rgba(198, 217, 0, 0.1);
+        border: 2px solid var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary-color);
+        margin: 0 auto 25px;
+        transition: all var(--transition-speed);
+    }
+
+    &:hover .step-number {
+        background: var(--primary-color);
+        color: var(--secondary-color);
+        transform: scale(1.1);
+    }
+
+    .step-content {
+        h3 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+    }
+
+    .step-connector {
+        display: none; // handled by CSS pseudo-elements for cleaner look
+    }
+}
+
+// Connector line between steps
+@media (min-width: 992px) {
+    .process-step:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 40px;
+        right: -15px;
+        width: 30px;
+        height: 2px;
+        background: rgba(198, 217, 0, 0.3);
+    }
+}
+
+@media (max-width: 991px) {
+    .process-timeline {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .process-timeline {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}

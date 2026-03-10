@@ -1,0 +1,15 @@
+<section class="clients section-padding">
+    <div class="container">
+        <h2>Markets We <span class="green">Serve</span></h2>
+        <p class="section-subtitle">
+            Our engineering solutions span across diverse market sectors, each
+            demanding unique expertise and specialized approaches.
+        </p>
+        <div class="sectors-grid">
+            <div class="sector-card" *ngFor="let sector of sectors">
+                <div class="sector-icon" [innerHTML]="sector.iconHtml"></div>
+                <h3>{{ sector.name }}</h3>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,393 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--secondary-color);
+    color: white;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    transition: all var(--transition-speed);
+
+    &.scrolled {
+        height: 60px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+    position: relative;
+}
+
+// ── Hamburger (ALWAYS visible, far left) ──
+.hamburger-toggle {
+    display: flex;
+    background: none;
+    border: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 10;
+    margin-right: 25px;
+    flex-shrink: 0;
+
+    span {
+        width: 22px;
+        height: 2px;
+        background-color: white;
+        transition: all var(--transition-speed);
+        border-radius: 1px;
+    }
+
+    &:hover span {
+        background-color: var(--primary-color);
+    }
+
+    &.active {
+        span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        span:nth-child(2) {
+            opacity: 0;
+        }
+
+        span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+    }
+}
+
+// ── Center section: nav-left + logo + nav-right ──
+// Using flex-grow to center the nav+logo group
+.nav-left,
+.nav-right {
+    display: flex;
+    gap: 30px;
+}
+
+// Left nav pushes to the right, toward logo
+.nav-left {
+    margin-left: auto;
+    margin-right: 40px;
+}
+
+// Logo stays centered between the two navs
+.logo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    display: flex;
+    gap: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    .logo-green {
+        color: var(--primary-color);
+    }
+
+    .logo-white {
+        color: white;
+    }
+}
+
+// Right nav sits right of logo
+.nav-right {
+    margin-left: 40px;
+    margin-right: auto;
+}
+
+// ── Navigation links ──
+nav a {
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: color var(--transition-speed);
+    position: relative;
+    white-space: nowrap;
+
+    &:hover,
+    &.active {
+        color: var(--primary-color);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width var(--transition-speed);
+    }
+
+    &:hover::after,
+    &.active::after {
+        width: 100%;
+    }
+}
+
+// Phone number — far right
+.contact-info {
+    flex-shrink: 0;
+    margin-left: auto;
+
+    .phone-link {
+        text-decoration: none;
+    }
+
+    .green {
+        color: var(--primary-color);
+        font-weight: 700;
+        font-size: 0.85rem;
+    }
+}
+
+// ── Side Menu Overlay ──
+.side-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.35s ease;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+// ── Side Menu (from LEFT) ──
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -380px;
+    width: 360px;
+    max-width: 85vw;
+    height: 100vh;
+    background: white;
+    z-index: 1999;
+    transition: left 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.15);
+
+    &.active {
+        left: 0;
+    }
+}
+
+.side-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    border-bottom: 1px solid #eee;
+
+    .side-logo {
+        font-size: 1.2rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: flex;
+        gap: 5px;
+
+        .logo-white {
+            color: var(--secondary-color);
+        }
+
+        .logo-green {
+            color: var(--primary-color);
+        }
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #999;
+        padding: 5px;
+        transition: color var(--transition-speed);
+
+        &:hover {
+            color: var(--secondary-color);
+        }
+    }
+}
+
+.side-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+
+    >a {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 30px;
+        color: var(--secondary-color);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 1px solid #f5f5f5;
+        transition: all var(--transition-speed);
+
+        svg {
+            color: #aaa;
+            flex-shrink: 0;
+            transition: color var(--transition-speed);
+        }
+
+        &:hover {
+            background: var(--bg-light);
+            color: var(--primary-color);
+            padding-left: 35px;
+
+            svg {
+                color: var(--primary-color);
+            }
+        }
+    }
+}
+
+.nav-group {
+    border-bottom: 1px solid #f5f5f5;
+
+    .nav-group-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 16px 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--secondary-color);
+        font-family: inherit;
+        transition: all var(--transition-speed);
+
+        span {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        svg.chevron {
+            transition: transform var(--transition-speed);
+            color: #aaa;
+
+            &.open {
+                transform: rotate(180deg);
+            }
+        }
+
+        &:hover {
+            background: var(--bg-light);
+            color: var(--primary-color);
+        }
+    }
+
+    .submenu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+        background: #fafafa;
+
+        &.open {
+            max-height: 300px;
+        }
+
+        a {
+            display: block;
+            padding: 12px 30px 12px 62px;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all var(--transition-speed);
+
+            &:hover {
+                color: var(--primary-color);
+                padding-left: 68px;
+                background: #f0f0f0;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+.side-menu-footer {
+    padding: 25px 30px;
+    border-top: 1px solid #eee;
+
+    .side-cta {
+        display: block;
+        text-align: center;
+        margin-bottom: 20px;
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+
+    .side-contact {
+        p {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 5px;
+
+            strong {
+                color: var(--secondary-color);
+            }
+        }
+    }
+}
+
+// ── Responsive ──
+@media (max-width: 1100px) {
+    .contact-info {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+
+    .nav-left,
+    .nav-right {
+        display: none;
+    }
+
+    .logo {
+        margin: 0 auto;
+    }
+}

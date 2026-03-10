@@ -1,0 +1,148 @@
+<!-- Hero Banner -->
+<section class="about-hero">
+    <div class="overlay"></div>
+    <div class="container hero-content">
+        <span class="hero-label">About Us</span>
+        <h1>Building the Future with <span class="green">Engineering Excellence</span></h1>
+        <p>
+            SynTa Engineering Inc is a full-service MEP engineering consulting firm
+            dedicated to delivering innovative, sustainable, and code-compliant
+            building solutions.
+        </p>
+    </div>
+</section>
+
+<!-- Company Story -->
+<section class="company-story section-padding">
+    <div class="container">
+        <div class="story-grid">
+            <div class="story-text">
+                <h2>Who We <span class="green">Are</span></h2>
+                <p>
+                    Founded with a vision to transform the built environment, SynTa Engineering Inc
+                    has grown into a trusted MEP engineering partner for developers, architects, and
+                    building owners across the region. Our team of licensed professional engineers
+                    brings decades of combined experience in mechanical, electrical, plumbing, and
+                    fire protection design.
+                </p>
+                <p>
+                    We specialize in creating high-performance building systems that prioritize
+                    occupant comfort, energy efficiency, and long-term operational savings. From
+                    concept through construction administration, we are committed to excellence at
+                    every phase of the design process.
+                </p>
+                <p>
+                    Our collaborative approach ensures seamless coordination with all project
+                    stakeholders, resulting in integrated designs that meet the highest standards
+                    of quality and code compliance.
+                </p>
+            </div>
+            <div class="story-image">
+                <img src="assets/images/hero.png" alt="SynTa Engineering Office" />
+                <div class="image-accent"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission & Vision -->
+<section class="mission-vision section-padding">
+    <div class="container">
+        <div class="mv-grid">
+            <div class="mv-card mission">
+                <div class="mv-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="6"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                </div>
+                <h3>Our Mission</h3>
+                <p>
+                    To deliver innovative, sustainable, and cost-effective MEP engineering solutions
+                    that enhance building performance, ensure occupant safety, and exceed our
+                    clients' expectations through technical expertise and collaborative partnership.
+                </p>
+            </div>
+            <div class="mv-card vision">
+                <div class="mv-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </div>
+                <h3>Our Vision</h3>
+                <p>
+                    To be the most trusted and sought-after MEP engineering firm, recognized for
+                    our commitment to design excellence, technological innovation, and our
+                    contribution to creating healthier, more efficient, and resilient buildings.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Bar -->
+<section class="stats-bar">
+    <div class="container stats-grid">
+        <div class="stat" *ngFor="let stat of stats">
+            <span class="stat-value">{{ stat.value }}</span>
+            <span class="stat-label">{{ stat.label }}</span>
+        </div>
+    </div>
+</section>
+
+<!-- Core Values -->
+<section class="core-values section-padding">
+    <div class="container">
+        <h2>Our Core <span class="green">Values</span></h2>
+        <p class="section-subtitle">
+            The principles that guide our work and define our commitment to every
+            project and client relationship.
+        </p>
+        <div class="values-grid">
+            <div class="value-card" *ngFor="let value of values">
+                <div class="value-icon" [innerHTML]="value.iconHtml"></div>
+                <h3>{{ value.title }}</h3>
+                <p>{{ value.description }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Team -->
+<section class="our-team section-padding">
+    <div class="container">
+        <h2>Meet Our <span class="green">Team</span></h2>
+        <p class="section-subtitle">
+            Our talented team of licensed professionals brings diverse expertise and a
+            shared passion for engineering excellence.
+        </p>
+        <div class="team-grid">
+            <div class="team-card" *ngFor="let member of team">
+                <div class="member-avatar">{{ member.initials }}</div>
+                <h3>{{ member.name }}</h3>
+                <span class="member-role">{{ member.role }}</span>
+                <p>{{ member.bio }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="about-cta">
+    <div class="overlay"></div>
+    <div class="container cta-content">
+        <h2>Ready to Start Your <span class="green">Project</span>?</h2>
+        <p>
+            Partner with SynTa Engineering Inc for expert MEP design and fire
+            protection services tailored to your project needs.
+        </p>
+        <div class="cta-actions">
+            <a href="tel:+1234567890" class="btn">Call (123) 456-7890</a>
+            <a routerLink="/" class="btn btn-outline">View Our Services</a>
+        </div>
+    </div>
+</section>

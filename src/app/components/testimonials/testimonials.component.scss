@@ -1,0 +1,97 @@
+.testimonials {
+    background: var(--bg-light);
+}
+
+.green {
+    color: var(--primary-color);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 40px 35px;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+    transition: all var(--transition-speed);
+    border-top: 4px solid transparent;
+
+    &:hover {
+        transform: translateY(-5px);
+        border-top-color: var(--primary-color);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .quote-icon {
+        font-size: 5rem;
+        color: var(--primary-color);
+        opacity: 0.3;
+        line-height: 1;
+        font-family: Georgia, serif;
+        position: absolute;
+        top: 15px;
+        left: 25px;
+    }
+
+    .quote-text {
+        color: #555;
+        font-size: 0.95rem;
+        line-height: 1.8;
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 1;
+        font-style: italic;
+    }
+
+    .client-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 20px;
+    }
+
+    .client-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--secondary-color);
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        flex-shrink: 0;
+    }
+
+    .client-details {
+        display: flex;
+        flex-direction: column;
+
+        strong {
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+        }
+
+        span {
+            color: #888;
+            font-size: 0.8rem;
+            margin-top: 3px;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}

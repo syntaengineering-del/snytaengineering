@@ -1,0 +1,46 @@
+<div *ngIf="service" class="service-detail">
+    <!-- Service Hero Banner -->
+    <section class="service-hero" [style.backgroundImage]="'url(' + service.heroImage + ')'">
+        <div class="overlay"></div>
+        <div class="container hero-content">
+            <span class="service-tag">{{ service.subtitle }}</span>
+            <h1>{{ service.title }}</h1>
+        </div>
+    </section>
+
+    <!-- Service Content -->
+    <section class="service-content section-padding">
+        <div class="container">
+            <div class="content-grid">
+                <div class="content-main">
+                    <h2>Overview</h2>
+                    <p class="lead">{{ service.description }}</p>
+                    <p>{{ service.details }}</p>
+                </div>
+                <div class="content-sidebar">
+                    <div class="features-card">
+                        <h3>Key Services</h3>
+                        <ul>
+                            <li *ngFor="let feature of service.features">
+                                <span class="check-icon">&#10003;</span>
+                                {{ feature }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your Project?</h2>
+            <p>
+                Contact SynTa Engineering Inc today for a consultation on your MEP
+                engineering needs.
+            </p>
+            <a href="tel:+1234567890" class="btn">Call (123) 456-7890</a>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,132 @@
+<header [class.scrolled]="isScrolled">
+    <div class="container header-container">
+        <!-- Hamburger Toggle (always visible) -->
+        <button class="hamburger-toggle" (click)="toggleMenu()" [class.active]="menuActive" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Left Navigation -->
+        <nav class="nav-left">
+            <a routerLink="/mechanical" routerLinkActive="active">Mechanical</a>
+            <a routerLink="/electrical" routerLinkActive="active">Electrical</a>
+            <a routerLink="/plumbing" routerLinkActive="active">Plumbing</a>
+        </nav>
+
+        <!-- Logo -->
+        <div class="logo" routerLink="/">
+            <span class="logo-white">SynTa</span>
+            <span class="logo-green">Engineering</span>
+        </div>
+
+        <!-- Right Navigation -->
+        <nav class="nav-right">
+            <a routerLink="/fire-sprinklers" routerLinkActive="active">Fire Sprinklers</a>
+            <a routerLink="/fire-alarm" routerLinkActive="active">Fire Alarm</a>
+        </nav>
+
+        <!-- Contact/Phone -->
+        <div class="contact-info">
+            <a href="tel:+1234567890" class="phone-link">
+                <span class="green">(123) 456-7890</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Side Menu Overlay -->
+<div class="side-menu-overlay" [class.active]="menuActive" (click)="toggleMenu()"></div>
+
+<!-- Side Menu -->
+<div class="side-menu" [class.active]="menuActive">
+    <div class="side-menu-header">
+        <div class="side-logo">
+            <span class="logo-white">SynTa</span>
+            <span class="logo-green">Engineering</span>
+        </div>
+        <button class="close-btn" (click)="toggleMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <nav class="side-nav">
+        <a routerLink="/" (click)="toggleMenu()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Home
+        </a>
+
+        <div class="nav-group">
+            <button class="nav-group-toggle" (click)="toggleSubmenu('services')">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z">
+                        </path>
+                    </svg>
+                    Engineering Services
+                </span>
+                <svg class="chevron" [class.open]="openSubmenu === 'services'" xmlns="http://www.w3.org/2000/svg"
+                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="submenu" [class.open]="openSubmenu === 'services'">
+                <a routerLink="/mechanical" (click)="toggleMenu()">Mechanical</a>
+                <a routerLink="/electrical" (click)="toggleMenu()">Electrical</a>
+                <a routerLink="/plumbing" (click)="toggleMenu()">Plumbing</a>
+                <a routerLink="/fire-sprinklers" (click)="toggleMenu()">Fire Sprinklers</a>
+                <a routerLink="/fire-alarm" (click)="toggleMenu()">Fire Alarm</a>
+            </div>
+        </div>
+
+        <a routerLink="/" fragment="projects" (click)="toggleMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            Projects
+        </a>
+
+        <a routerLink="/about" (click)="toggleMenu()" routerLinkActive="active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            About Us
+        </a>
+
+        <a routerLink="/" fragment="contact" (click)="toggleMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            Contact Us
+        </a>
+    </nav>
+
+    <div class="side-menu-footer">
+        <a href="tel:+1234567890" class="side-cta btn">
+            Get a Quote ›
+        </a>
+        <div class="side-contact">
+            <p><strong>Phone:</strong> (123) 456-7890</p>
+            <p><strong>Email:</strong> info&#64;syntaengineering.com</p>
+        </div>
+    </div>
+</div>

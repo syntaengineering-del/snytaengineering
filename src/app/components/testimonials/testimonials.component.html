@@ -1,0 +1,18 @@
+<section class="testimonials section-padding">
+    <div class="container">
+        <h2>What Our Clients <span class="green">Say</span></h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card" *ngFor="let t of testimonials">
+                <div class="quote-icon">"</div>
+                <p class="quote-text">{{ t.quote }}</p>
+                <div class="client-info">
+                    <div class="client-avatar">{{ t.initials }}</div>
+                    <div class="client-details">
+                        <strong>{{ t.name }}</strong>
+                        <span>{{ t.title }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,21 @@
+<section class="services section-padding" id="services">
+    <div class="container">
+        <h2>Our Engineering <span class="green">Services</span></h2>
+        <p class="section-subtitle">
+            We provide comprehensive MEP engineering solutions with a focus on
+            sustainability, code compliance, and energy efficiency.
+        </p>
+        <div class="services-grid">
+            <div class="service-card" *ngFor="let service of services">
+                <div class="card-image" [style.backgroundImage]="'url(' + service.image + ')'">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description }}</p>
+                    <a [routerLink]="service.link" class="read-more">Learn More &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

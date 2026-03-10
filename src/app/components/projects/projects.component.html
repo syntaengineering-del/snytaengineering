@@ -1,0 +1,35 @@
+<section class="projects section-padding" id="projects">
+    <div class="container">
+        <h2>Featured <span class="green">Projects</span></h2>
+        <p class="section-subtitle">
+            Explore our portfolio of successfully delivered MEP engineering projects
+            across diverse market sectors.
+        </p>
+
+        <!-- Filters -->
+        <div class="filter-bar">
+            <button *ngFor="let filter of filters" [class.active]="activeFilter === filter" (click)="setFilter(filter)">
+                {{ filter }}
+            </button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+            <div class="project-card" *ngFor="let project of filteredProjects">
+                <div class="project-image" [style.backgroundImage]="'url(' + project.image + ')'">
+                    <div class="project-overlay">
+                        <div class="overlay-content">
+                            <span class="project-sqft">{{ project.sqft }}</span>
+                            <h3>{{ project.title }}</h3>
+                            <div class="project-tags">
+                                <span *ngFor="let service of project.services" class="tag">{{
+                                    service
+                                    }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

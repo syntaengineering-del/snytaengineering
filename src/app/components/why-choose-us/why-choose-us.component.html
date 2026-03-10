@@ -1,0 +1,17 @@
+<section class="why-choose section-padding">
+    <div class="container">
+        <h2>Why Choose <span class="green">SynTa Engineering</span></h2>
+        <p class="section-subtitle">
+            We combine deep technical expertise with a commitment to client
+            satisfaction, delivering engineering solutions that stand the test of
+            time.
+        </p>
+        <div class="reasons-grid">
+            <div class="reason-card" *ngFor="let reason of reasons">
+                <div class="reason-icon" [innerHTML]="reason.iconHtml"></div>
+                <h3>{{ reason.title }}</h3>
+                <p>{{ reason.description }}</p>
+            </div>
+        </div>
+    </div>
+</section>
