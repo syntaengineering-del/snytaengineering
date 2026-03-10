@@ -12,7 +12,7 @@
 
 <section class="projects-section section-padding">
     <div class="container">
-        <!-- Error State -->
+        <!-- Error State (Subtle) -->
         <div class="error-banner" *ngIf="error">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -33,53 +33,51 @@
         <!-- Loading State -->
         <div class="loading-state" *ngIf="loading">
             <div class="spinner"></div>
-            <p>Loading projects...</p>
+            <p>Loading our portfolio...</p>
         </div>
 
-        <!-- Projects Grid -->
-        <ng-container *ngIf="!loading && (projects$ | async) as projects">
-            <div class="projects-grid">
-                <div *ngFor="let project of getFilteredProjects(projects)" class="project-card">
-                    <div class="project-image" (click)="openGallery(project, 0)">
-                        <img [src]="project.mainImage" [alt]="project.title">
-                        <div class="project-overlay">
-                            <div class="view-gallery-hint">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path
-                                        d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
-                                    </path>
-                                    <circle cx="12" cy="13" r="4"></circle>
-                                </svg>
-                                <span>View Gallery</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="category">{{ project.category }}</div>
-                        <h3>{{ project.title }}</h3>
-                        <div class="location">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+        <!-- Projects Grid - Always try to render if projects are available -->
+        <div class="projects-grid" *ngIf="(projects$ | async) as projects">
+            <div *ngFor="let project of getFilteredProjects(projects)" class="project-card">
+                <div class="project-image" (click)="openGallery(project, 0)">
+                    <img [src]="project.mainImage" [alt]="project.title">
+                    <div class="project-overlay">
+                        <div class="view-gallery-hint">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
+                                <path
+                                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                                </path>
+                                <circle cx="12" cy="13" r="4"></circle>
                             </svg>
-                            {{ project.location }}
+                            <span>View Gallery</span>
                         </div>
                     </div>
-                    <div class="project-meta">
-                        <span class="sqft">{{ project.sqft }}</span>
-                        <button class="view-btn" (click)="openGallery(project, 0)">View Details</button>
+                </div>
+                <div class="project-info">
+                    <div class="category">{{ project.category }}</div>
+                    <h3>{{ project.title }}</h3>
+                    <div class="location">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        {{ project.location }}
                     </div>
+                </div>
+                <div class="project-meta">
+                    <span class="sqft">{{ project.sqft }}</span>
+                    <button class="view-btn" (click)="openGallery(project, 0)">View Details</button>
                 </div>
             </div>
 
-            <div class="no-results" *ngIf="getFilteredProjects(projects).length === 0">
+            <!-- Empty State -->
+            <div class="no-results" *ngIf="getFilteredProjects(projects).length === 0 && !loading">
                 <p>No projects found in this category.</p>
             </div>
-        </ng-container>
+        </div>
     </div>
 </section>
 

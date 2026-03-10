@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, setDoc, addDoc, query, where, getDocs, deleteDoc } from '@angular/fire/firestore';
+import {
+    Firestore,
+    collection,
+    doc,
+    addDoc,
+    deleteDoc,
+    getDocs,
+    query
+} from '@angular/fire/firestore';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
-import { Observable, from, of } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { Observable, from, of, throwError } from 'rxjs';
+import { map, catchError, tap } from 'rxjs/operators';
 import { Project } from '../models/project.model';
 
 @Injectable({
@@ -16,23 +24,26 @@ export class ProjectService {
         private storage: Storage
     ) { }
 
-    // Get all projects
+    // Get all projects using a more stable fetch method
     getProjects(): Observable<Project[]> {
-        try {
-            console.log('ProjectService: Fetching projects from path:', this.projectsPath);
-            const projectsRef = collection(this.firestore, this.projectsPath);
-            const q = query(projectsRef); // Wrap in query to ensure type compatibility
-            return (collectionData(q, { idField: 'id' }) as Observable<Project[]>).pipe(
-                tap(data => console.log('ProjectService: Received data from Firestore:', data)),
-                catchError(err => {
-                    console.error('ProjectService: Error in collectionData pipe:', err);
-                    throw err;
-                })
-            );
-        } catch (err) {
-            console.error('ProjectService: Sync error in getProjects:', err);
-            return of([]); // Return empty if sync error
-        }
+        console.log('ProjectService: Fetching projects...');
+        const projectsRef = collection(this.firestore, this.projectsPath);
+
+        // Use from(getDocs) instead of collectionData to avoid the strict type error for now
+        return from(getDocs(query(projectsRef))).pipe(
+            map(snapshot => {
+                const projects = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                } as Project));
+                console.log('ProjectService: Successfully fetched', projects.length, 'projects');
+                return projects;
+            }),
+            catchError(err => {
+                console.error('ProjectService: Error fetching from Firestore:', err);
+                return throwError(() => err);
+            })
+        );
     }
 
     // Add a new project

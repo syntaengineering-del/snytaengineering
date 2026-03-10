@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.model';
 import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, startWith } from 'rxjs/operators';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
 })
 export class ProjectsPageComponent implements OnInit {
     activeFilter = 'all';
-    projects$: Observable<Project[]> = of([]);
+    projects$: Observable<Project[]>;
     loading = true;
     error: string | null = null;
 
@@ -26,28 +26,33 @@ export class ProjectsPageComponent implements OnInit {
 
     filters = ['all', 'commercial', 'healthcare', 'education', 'residential', 'industrial'];
 
-    constructor(private projectService: ProjectService) { }
+    constructor(private projectService: ProjectService) {
+        // Basic initialization
+        this.projects$ = of([]);
+    }
 
     ngOnInit() {
+        console.log('ProjectsPage: Initializing...');
+
+        // Fetch projects and merge with static ones
         this.projects$ = this.projectService.getProjects().pipe(
-            map(firestoreProjects => {
+            map(liveProjects => {
+                console.log('ProjectsPage: Live projects received:', liveProjects.length);
                 this.loading = false;
                 const staticProjects = this.projectService.getStaticProjects();
-
-                // Keep static projects first, then add ones from database
-                // This ensures your new uploads appear in the list
-                return [...staticProjects, ...firestoreProjects];
+                return [...staticProjects, ...liveProjects];
             }),
             catchError(err => {
-                console.error('Firestore Fetch Error:', err);
+                console.error('ProjectsPage: Error loading live projects:', err);
                 this.loading = false;
-                this.error = 'Failed to load live projects. Showing backup data.';
+                this.error = 'Live projects could not be loaded. Showing static portfolio.';
                 return of(this.projectService.getStaticProjects());
             })
         );
     }
 
-    getFilteredProjects(projects: Project[]) {
+    getFilteredProjects(projects: Project[] | null) {
+        if (!projects) return [];
         if (this.activeFilter === 'all') return projects;
         return projects.filter((p) => p.category === this.activeFilter);
     }
@@ -86,43 +91,4 @@ export class ProjectsPageComponent implements OnInit {
             this.currentImageIndex = (this.currentImageIndex - 1 + this.selectedProject.images.length) % this.selectedProject.images.length;
         }
     }
-
-    private staticProjects: Project[] = [
-        {
-            title: 'Metro Commercial Plaza',
-            category: 'commercial',
-            mainImage: 'assets/images/mechanical.png',
-            images: ['assets/images/mechanical.png', 'assets/images/electrical.png', 'assets/images/plumbing.png'],
-            location: 'New York, NY',
-            services: ['Mechanical', 'Electrical', 'Plumbing'],
-            sqft: '250,000 sq ft'
-        },
-        {
-            title: 'City Medical Center',
-            category: 'healthcare',
-            mainImage: 'assets/images/electrical.png',
-            images: ['assets/images/electrical.png', 'assets/images/mechanical.png'],
-            location: 'Brooklyn, NY',
-            services: ['Full MEP', 'Fire Protection'],
-            sqft: '180,000 sq ft'
-        },
-        {
-            title: 'Riverside Office Tower',
-            category: 'commercial',
-            mainImage: 'assets/images/hero.png',
-            images: ['assets/images/hero.png', 'assets/images/mechanical.png'],
-            location: 'Jersey City, NJ',
-            services: ['Mechanical', 'Electrical'],
-            sqft: '320,000 sq ft'
-        },
-        {
-            title: 'Valley School District',
-            category: 'education',
-            mainImage: 'assets/images/plumbing.png',
-            images: ['assets/images/plumbing.png', 'assets/images/sprinkler.png'],
-            location: 'Staten Island, NY',
-            services: ['Full MEP', 'Fire Alarm'],
-            sqft: '120,000 sq ft'
-        }
-    ];
 }

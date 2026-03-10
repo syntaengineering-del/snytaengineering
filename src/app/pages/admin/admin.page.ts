@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 import { AuthService } from '../../services/auth.service';
 import { Project } from '../../models/project.model';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Component({
     selector: 'app-admin',
@@ -30,7 +30,11 @@ export class AdminPageComponent implements OnInit {
     ) {
         // Use an observable that combines static data with live data
         this.projects$ = this.projectService.getProjects().pipe(
-            map(live => [...this.projectService.getStaticProjects(), ...live])
+            map(live => [...this.projectService.getStaticProjects(), ...live]),
+            catchError(err => {
+                console.error('Admin Fetch Error:', err);
+                return of(this.projectService.getStaticProjects());
+            })
         );
     }
 
