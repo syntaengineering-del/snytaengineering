@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, setDoc, addDoc, query, where, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, setDoc, addDoc, query, where, getDocs, deleteDoc } from '@angular/fire/firestore';
+import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 import { Observable, from } from 'rxjs';
 import { Project } from '../models/project.model';
 
@@ -9,7 +10,10 @@ import { Project } from '../models/project.model';
 export class ProjectService {
     private projectsPath = 'projects';
 
-    constructor(private firestore: Firestore) { }
+    constructor(
+        private firestore: Firestore,
+        private storage: Storage
+    ) { }
 
     // Get all projects
     getProjects(): Observable<Project[]> {
@@ -23,7 +27,21 @@ export class ProjectService {
         return addDoc(projectsRef, project);
     }
 
-    // Update/Seed initial data if needed
+    // Upload a single file and return URL
+    async uploadFile(file: File, folder: string = 'projects'): Promise<string> {
+        const filePath = `${folder}/${Date.now()}_${file.name}`;
+        const storageRef = ref(this.storage, filePath);
+        const snapshot = await uploadBytes(storageRef, file);
+        return await getDownloadURL(snapshot.ref);
+    }
+
+    // Delete project
+    deleteProject(id: string) {
+        const docRef = doc(this.firestore, `${this.projectsPath}/${id}`);
+        return deleteDoc(docRef);
+    }
+
+    // Seed initial data
     async seedInitialData(projects: Project[]) {
         const projectsRef = collection(this.firestore, this.projectsPath);
         for (const p of projects) {

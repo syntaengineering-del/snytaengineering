@@ -116,6 +116,9 @@
             <div class="meta-info">
                 <h2>{{ selectedProject.title }}</h2>
                 <p>{{ selectedProject.location }} • {{ selectedProject.category | titlecase }}</p>
+                <div class="project-details-text" *ngIf="selectedProject.description">
+                    {{ selectedProject.description }}
+                </div>
             </div>
             <div class="image-counter" *ngIf="selectedProject.images">
                 {{ currentImageIndex + 1 }} / {{ selectedProject.images.length }}
