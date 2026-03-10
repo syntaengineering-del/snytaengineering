@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, collectionData, doc, setDoc, addDoc, query, where, getDocs, deleteDoc } from '@angular/fire/firestore';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
-import { Observable, from } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
 import { Project } from '../models/project.model';
 
 @Injectable({
@@ -17,8 +18,21 @@ export class ProjectService {
 
     // Get all projects
     getProjects(): Observable<Project[]> {
-        const projectsRef = collection(this.firestore, this.projectsPath);
-        return collectionData(projectsRef, { idField: 'id' }) as Observable<Project[]>;
+        try {
+            console.log('ProjectService: Fetching projects from path:', this.projectsPath);
+            const projectsRef = collection(this.firestore, this.projectsPath);
+            const q = query(projectsRef); // Wrap in query to ensure type compatibility
+            return (collectionData(q, { idField: 'id' }) as Observable<Project[]>).pipe(
+                tap(data => console.log('ProjectService: Received data from Firestore:', data)),
+                catchError(err => {
+                    console.error('ProjectService: Error in collectionData pipe:', err);
+                    throw err;
+                })
+            );
+        } catch (err) {
+            console.error('ProjectService: Sync error in getProjects:', err);
+            return of([]); // Return empty if sync error
+        }
     }
 
     // Add a new project
