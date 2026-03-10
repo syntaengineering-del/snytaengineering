@@ -48,4 +48,45 @@ export class ProjectService {
             await addDoc(projectsRef, p);
         }
     }
+
+    getStaticProjects(): Project[] {
+        return [
+            {
+                title: 'Metro Commercial Plaza',
+                category: 'commercial',
+                mainImage: 'assets/images/mechanical.png',
+                images: ['assets/images/mechanical.png', 'assets/images/electrical.png', 'assets/images/plumbing.png'],
+                location: 'New York, NY',
+                services: ['Mechanical', 'Electrical', 'Plumbing'],
+                sqft: '250,000 sq ft'
+            },
+            {
+                title: 'City Medical Center',
+                category: 'healthcare',
+                mainImage: 'assets/images/electrical.png',
+                images: ['assets/images/electrical.png', 'assets/images/mechanical.png'],
+                location: 'Brooklyn, NY',
+                services: ['Full MEP', 'Fire Protection'],
+                sqft: '180,000 sq ft'
+            },
+            {
+                title: 'Riverside Office Tower',
+                category: 'commercial',
+                mainImage: 'assets/images/hero.png',
+                images: ['assets/images/hero.png', 'assets/images/mechanical.png'],
+                location: 'Jersey City, NJ',
+                services: ['Mechanical', 'Electrical'],
+                sqft: '320,000 sq ft'
+            },
+            {
+                title: 'Valley School District',
+                category: 'education',
+                mainImage: 'assets/images/plumbing.png',
+                images: ['assets/images/plumbing.png', 'assets/images/sprinkler.png'],
+                location: 'Staten Island, NY',
+                services: ['Full MEP', 'Fire Alarm'],
+                sqft: '120,000 sq ft'
+            }
+        ];
+    }
 }

@@ -30,18 +30,19 @@ export class ProjectsPageComponent implements OnInit {
 
     ngOnInit() {
         this.projects$ = this.projectService.getProjects().pipe(
-            map(projects => {
+            map(firestoreProjects => {
                 this.loading = false;
-                if (projects.length === 0) {
-                    return this.staticProjects;
-                }
-                return projects;
+                const staticProjects = this.projectService.getStaticProjects();
+
+                // Keep static projects first, then add ones from database
+                // This ensures your new uploads appear in the list
+                return [...staticProjects, ...firestoreProjects];
             }),
             catchError(err => {
                 console.error('Firestore Fetch Error:', err);
                 this.loading = false;
-                this.error = 'Failed to load projects. Using backup data.';
-                return of(this.staticProjects);
+                this.error = 'Failed to load live projects. Showing backup data.';
+                return of(this.projectService.getStaticProjects());
             })
         );
     }

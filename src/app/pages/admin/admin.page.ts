@@ -5,6 +5,7 @@ import { ProjectService } from '../../services/project.service';
 import { AuthService } from '../../services/auth.service';
 import { Project } from '../../models/project.model';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-admin',
@@ -27,7 +28,10 @@ export class AdminPageComponent implements OnInit {
         private projectService: ProjectService,
         private authService: AuthService
     ) {
-        this.projects$ = this.projectService.getProjects();
+        // Use an observable that combines static data with live data
+        this.projects$ = this.projectService.getProjects().pipe(
+            map(live => [...this.projectService.getStaticProjects(), ...live])
+        );
     }
 
     ngOnInit() { }
