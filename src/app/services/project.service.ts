@@ -32,7 +32,7 @@ export class ProjectService {
         // Use from(getDocs) instead of collectionData to avoid the strict type error for now
         return from(getDocs(query(projectsRef))).pipe(
             map(snapshot => {
-                const projects = snapshot.docs.map(doc => ({
+                const projects = snapshot.docs.map((doc: any) => ({
                     id: doc.id,
                     ...doc.data()
                 } as Project));
