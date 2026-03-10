@@ -1,0 +1,308 @@
+// ── Projects Hero ──
+.projects-hero {
+    position: relative;
+    background: url('/assets/images/hero.png') center / cover no-repeat;
+    padding: 180px 0 120px;
+    color: white;
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(11, 28, 63, 0.95) 0%, rgba(11, 28, 63, 0.8) 100%);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 850px;
+        animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-label {
+        display: inline-block;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--primary-color);
+    }
+
+    h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+
+        .green {
+            color: var(--primary-color);
+        }
+    }
+
+    p {
+        font-size: 1.25rem;
+        opacity: 0.9;
+        line-height: 1.8;
+        max-width: 650px;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// ── Filter Controls ──
+.filter-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 60px;
+
+    button {
+        padding: 10px 25px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-weight: 600;
+        color: var(--secondary-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+
+        &:hover,
+        &.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+// ── Projects Grid ──
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.project-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+        .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            opacity: 1;
+        }
+
+        .view-btn {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+        }
+    }
+}
+
+.project-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(11, 28, 63, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        padding: 20px;
+    }
+
+    .services-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+
+        span {
+            font-size: 0.75rem;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+    }
+}
+
+.project-info {
+    padding: 30px 25px 15px;
+    flex-grow: 1;
+
+    .category {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--primary-color);
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+        color: var(--secondary-color);
+        margin-bottom: 15px;
+        line-height: 1.3;
+        text-transform: none;
+        letter-spacing: normal;
+    }
+
+    .location {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        color: #777;
+
+        svg {
+            color: var(--primary-color);
+        }
+    }
+}
+
+.project-meta {
+    padding: 15px 25px 25px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .sqft {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--secondary-color);
+    }
+
+    .view-btn {
+        padding: 8px 15px;
+        border: 1px solid var(--primary-color);
+        background: transparent;
+        color: var(--secondary-color);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+}
+
+// ── CTA Section ──
+.projects-cta {
+    position: relative;
+    background: url('/assets/images/plumbing.png') center / cover no-repeat fixed;
+    padding: 120px 0;
+    color: white;
+    text-align: center;
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(11, 28, 63, 0.9);
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        margin: 0 auto;
+
+        h2 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 25px;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+    }
+}
+
+// ── Responsive ──
+@media (max-width: 1100px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-hero {
+        padding: 150px 0 80px;
+
+        h1 {
+            font-size: 2.8rem;
+        }
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .projects-cta h2 {
+        font-size: 2.2rem;
+    }
+}

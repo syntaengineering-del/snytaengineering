@@ -41,7 +41,7 @@
 <div class="side-menu" [class.active]="menuActive">
     <div class="side-menu-header">
         <div class="side-logo">
-                        <span class="logo-white">SynTa</span>
+                     <span class="logo-white">SynTa</span>
             <span class="logo-green">Engineering</span>
         </div>
         <button class="close-btn" (click)="toggleMenu()">
@@ -89,7 +89,7 @@
             </div>
         </div>
 
-        <a routerLink="/" fragment="projects" (click)="toggleMenu()">
+        <a routerLink="/projects" (click)="toggleMenu()" routerLinkActive="active">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>

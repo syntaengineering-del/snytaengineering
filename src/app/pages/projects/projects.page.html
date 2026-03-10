@@ -1,0 +1,65 @@
+<section class="projects-hero">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="hero-content">
+            <span class="hero-label">Our Work</span>
+            <h1>Engineering <span class="green">Impact</span></h1>
+            <p>We take pride in our diverse portfolio of projects ranging from high-rise commercial towers to
+                state-of-the-art healthcare facilities. Our commitment is to deliver precision in every detail.</p>
+        </div>
+    </div>
+</section>
+
+<section class="projects-section section-padding">
+    <div class="container">
+        <!-- Filter Controls -->
+        <div class="filter-controls">
+            <button *ngFor="let filter of filters" [class.active]="activeFilter === filter" (click)="setFilter(filter)">
+                {{ filter | titlecase }}
+            </button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+            <div *ngFor="let project of filteredProjects" class="project-card">
+                <div class="project-image">
+                    <img [src]="project.image" [alt]="project.title">
+                    <div class="project-overlay">
+                        <div class="services-list">
+                            <span *ngFor="let service of project.services">{{ service }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="category">{{ project.category }}</div>
+                    <h3>{{ project.title }}</h3>
+                    <div class="location">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        {{ project.location }}
+                    </div>
+                </div>
+                <div class="project-meta">
+                    <span class="sqft">{{ project.sqft }}</span>
+                    <button class="view-btn">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="projects-cta">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Start Your Next Project?</h2>
+            <p>Our team of licensed MEP engineers is ready to help you bring your vision to life.</p>
+            <div class="cta-actions">
+                <a routerLink="/contact" class="btn">Get Started Today</a>
+            </div>
+        </div>
+    </div>
+</section>
