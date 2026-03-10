@@ -208,7 +208,7 @@ nav a {
     border-bottom: 1px solid #eee;
 
     .side-logo {
-      font-size: 1.2rem;
+        font-size: 1.2rem;
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -391,6 +391,9 @@ nav a {
     }
 
     .logo {
-        margin: 0 auto;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
     }
 }
