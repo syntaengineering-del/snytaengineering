@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { Project } from '../../models/project.model';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-admin',
@@ -37,7 +38,8 @@ export class AdminPageComponent implements OnInit {
 
     constructor(
         private projectService: ProjectService,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router
     ) {
         this.projects$ = this.projectService.getProjects().pipe(
             map(live => [...this.projectService.getStaticProjects(), ...live]),
@@ -179,7 +181,8 @@ export class AdminPageComponent implements OnInit {
         }
     }
 
-    logout() {
-        this.authService.logout();
+    async logout() {
+        await this.authService.logout();
+        this.router.navigate(['/']);
     }
 }

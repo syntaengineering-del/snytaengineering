@@ -24,7 +24,7 @@ export class LoginPageComponent {
         this.error = '';
         try {
             await this.authService.login(this.email, this.password);
-            this.router.navigate(['/projects']);
+            this.router.navigate(['/admin']);
         } catch (err: any) {
             console.error(err);
             this.error = 'Invalid email or password. Please try again.';
