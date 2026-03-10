@@ -6,12 +6,29 @@
             <h1>Engineering <span class="green">Impact</span></h1>
             <p>We take pride in our diverse portfolio of projects ranging from high-rise commercial towers to
                 state-of-the-art healthcare facilities. Our commitment is to deliver precision in every detail.</p>
+
+            <div class="debug-actions">
+                <button class="seed-btn" (click)="seedData()" [disabled]="seeding">
+                    {{ seeding ? 'Seeding...' : 'Seed Test Data to Firebase' }}
+                </button>
+            </div>
         </div>
     </div>
 </section>
 
 <section class="projects-section section-padding">
     <div class="container">
+        <!-- Error State -->
+        <div class="error-banner" *ngIf="error">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            {{ error }}
+        </div>
+
         <!-- Filter Controls -->
         <div class="filter-controls">
             <button *ngFor="let filter of filters" [class.active]="activeFilter === filter" (click)="setFilter(filter)">
@@ -19,37 +36,106 @@
             </button>
         </div>
 
+        <!-- Loading State -->
+        <div class="loading-state" *ngIf="loading">
+            <div class="spinner"></div>
+            <p>Loading projects...</p>
+        </div>
+
         <!-- Projects Grid -->
-        <div class="projects-grid">
-            <div *ngFor="let project of filteredProjects" class="project-card">
-                <div class="project-image">
-                    <img [src]="project.image" [alt]="project.title">
-                    <div class="project-overlay">
-                        <div class="services-list">
-                            <span *ngFor="let service of project.services">{{ service }}</span>
+        <ng-container *ngIf="!loading && (projects$ | async) as projects">
+            <div class="projects-grid">
+                <div *ngFor="let project of getFilteredProjects(projects)" class="project-card">
+                    <div class="project-image" (click)="openGallery(project, 0)">
+                        <img [src]="project.mainImage" [alt]="project.title">
+                        <div class="project-overlay">
+                            <div class="view-gallery-hint">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                                    </path>
+                                    <circle cx="12" cy="13" r="4"></circle>
+                                </svg>
+                                <span>View Gallery</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="project-info">
-                    <div class="category">{{ project.category }}</div>
-                    <h3>{{ project.title }}</h3>
-                    <div class="location">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                        {{ project.location }}
+                    <div class="project-info">
+                        <div class="category">{{ project.category }}</div>
+                        <h3>{{ project.title }}</h3>
+                        <div class="location">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            {{ project.location }}
+                        </div>
+                    </div>
+                    <div class="project-meta">
+                        <span class="sqft">{{ project.sqft }}</span>
+                        <button class="view-btn" (click)="openGallery(project, 0)">View Details</button>
                     </div>
                 </div>
-                <div class="project-meta">
-                    <span class="sqft">{{ project.sqft }}</span>
-                    <button class="view-btn">View Details</button>
-                </div>
+            </div>
+
+            <div class="no-results" *ngIf="getFilteredProjects(projects).length === 0">
+                <p>No projects found in this category.</p>
+            </div>
+        </ng-container>
+    </div>
+</section>
+
+<!-- Gallery Lightbox Modal -->
+<div class="gallery-modal" *ngIf="showGallery && selectedProject" (click)="closeGallery()">
+    <button class="modal-close" (click)="closeGallery()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    </button>
+
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="main-image-container">
+            <button class="nav-prev" (click)="prevImage($event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <ng-container *ngIf="selectedProject.images && selectedProject.images.length > 0">
+                <img [src]="selectedProject.images[currentImageIndex]" class="modal-image">
+            </ng-container>
+            <button class="nav-next" (click)="nextImage($event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+
+        <div class="modal-footer">
+            <div class="meta-info">
+                <h2>{{ selectedProject.title }}</h2>
+                <p>{{ selectedProject.location }} • {{ selectedProject.category | titlecase }}</p>
+            </div>
+            <div class="image-counter" *ngIf="selectedProject.images">
+                {{ currentImageIndex + 1 }} / {{ selectedProject.images.length }}
+            </div>
+        </div>
+
+        <div class="thumbnails" *ngIf="selectedProject.images && selectedProject.images.length > 1">
+            <div *ngFor="let img of selectedProject.images; let i = index" class="thumb"
+                [class.active]="i === currentImageIndex" (click)="currentImageIndex = i">
+                <img [src]="img">
             </div>
         </div>
     </div>
-</section>
+</div>
 
 <section class="projects-cta">
     <div class="overlay"></div>

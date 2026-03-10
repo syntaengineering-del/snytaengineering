@@ -51,6 +51,22 @@
         line-height: 1.8;
         max-width: 650px;
     }
+
+    .seed-btn {
+        margin-top: 30px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 5px 15px;
+        font-size: 0.7rem;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: all 0.3s;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    }
 }
 
 @keyframes fadeInUp {
@@ -62,6 +78,44 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+// ── Loading & Errors ──
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 0;
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-top-color: var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+    }
+}
+
+.error-banner {
+    background: #fff5f5;
+    color: #c53030;
+    padding: 15px 25px;
+    border-radius: 6px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 500;
+    border-left: 4px solid #c53030;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }
 
@@ -136,6 +190,7 @@
     position: relative;
     height: 250px;
     overflow: hidden;
+    cursor: pointer;
 
     img {
         width: 100%;
@@ -159,20 +214,18 @@
         padding: 20px;
     }
 
-    .services-list {
+    .view-gallery-hint {
+        color: white;
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
 
         span {
-            font-size: 0.75rem;
-            background: var(--primary-color);
-            color: var(--secondary-color);
-            padding: 4px 10px;
-            border-radius: 3px;
-            font-weight: 700;
+            font-size: 0.8rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
         }
     }
 }
@@ -240,6 +293,165 @@
     }
 }
 
+// ── Gallery Lightbox ──
+.gallery-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+
+    .modal-close {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        z-index: 10;
+        transition: transform 0.3s;
+
+        &:hover {
+            transform: scale(1.1);
+            color: var(--primary-color);
+        }
+    }
+
+    .modal-content {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        padding: 20px;
+    }
+
+    .main-image-container {
+        position: relative;
+        width: 100%;
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-prev,
+        .nav-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 20px 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 4px;
+
+            &:hover {
+                background: var(--primary-color);
+                color: var(--secondary-color);
+            }
+        }
+
+        .nav-prev {
+            left: 10px;
+        }
+
+        .nav-next {
+            right: 10px;
+        }
+    }
+
+    .modal-footer {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        color: white;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 20px;
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: white;
+        }
+
+        p {
+            opacity: 0.7;
+            margin: 5px 0 0;
+        }
+
+        .image-counter {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+    }
+
+    .thumbnails {
+        display: flex;
+        gap: 15px;
+        overflow-x: auto;
+        padding: 10px;
+        width: 100%;
+        justify-content: center;
+
+        .thumb {
+            width: 80px;
+            height: 60px;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.4;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            &.active {
+                opacity: 1;
+                border-color: var(--primary-color);
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 // ── CTA Section ──
 .projects-cta {
     position: relative;
@@ -304,5 +516,23 @@
 
     .projects-cta h2 {
         font-size: 2.2rem;
+    }
+
+    .gallery-modal {
+        .modal-footer {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 15px;
+        }
+
+        .main-image-container {
+            height: 40vh;
+        }
+
+        .nav-prev,
+        .nav-next {
+            padding: 10px 5px;
+        }
     }
 }
