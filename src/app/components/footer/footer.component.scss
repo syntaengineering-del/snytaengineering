@@ -22,18 +22,19 @@ h3 {
 }
 
 .footer-logo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: flex;
-    gap: 8px;
+    align-items: center;
 
-    .green {
-        color: var(--primary-color);
-    }
+    .footer-logo-img {
+        max-height: 42px;
+        width: auto;
+        object-fit: contain;
+        transition: transform var(--transition-speed);
 
-    .white {
-        color: white;
+        &:hover {
+            transform: scale(1.05);
+        }
     }
 }
 

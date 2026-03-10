@@ -83,23 +83,26 @@ header {
 
 // Logo stays centered between the two navs
 .logo {
-    font-size: 1.4rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
     cursor: pointer;
     display: flex;
-    gap: 6px;
-    white-space: nowrap;
-    flex-shrink: 0;
+    align-items: center;
+    height: 100%;
 
-    .logo-green {
-        color: var(--primary-color);
-    }
+    .logo-img {
+        max-height: 55px;
+        /* Adjust based on original design */
+        width: auto;
+        object-fit: contain;
+        transition: transform var(--transition-speed);
 
-    .logo-white {
-        color: white;
+        &:hover {
+            transform: scale(1.05);
+        }
     }
+}
+
+header.scrolled .logo-img {
+    max-height: 45px;
 }
 
 // Right nav sits right of logo
@@ -205,7 +208,7 @@ nav a {
     border-bottom: 1px solid #eee;
 
     .side-logo {
-        font-size: 1.2rem;
+      font-size: 1.2rem;
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 1px;
