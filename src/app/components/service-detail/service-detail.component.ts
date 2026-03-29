@@ -10,6 +10,11 @@ interface ServiceData {
   description: string;
   features: string[];
   details: string;
+  additionalSection?: {
+    title: string;
+    description: string;
+    features: string[];
+  };
 }
 
 @Component({
@@ -32,15 +37,28 @@ export class ServiceDetailComponent implements OnInit {
       features: [
         'HVAC System Design & Optimization',
         'Central Plant Design (Chillers & Boilers)',
-        'Geothermal & Renewable Energy Systems',
-        'Building Automation Systems (BAS)',
         'Ventilation & Indoor Air Quality',
         'Energy Modeling & LEED Consulting',
         'Load Calculations & System Sizing',
+        'Air Handling Unit (AHU)',
+        'Condensing Unit (CU)',
+        'Rooftop Unit (RTU)',
+        'Variable Refrigerant Flow (VRF)',
         'Commissioning Support'
       ],
       details:
-        'Our mechanical engineering team specializes in designing energy-efficient heating, ventilation, and air conditioning systems. We leverage the latest technology and sustainable practices to deliver solutions that maximize occupant comfort while minimizing energy consumption and environmental impact.'
+        'Our mechanical engineering team specializes in designing energy-efficient heating, ventilation, and air conditioning systems. We leverage the latest technology and sustainable practices to deliver solutions that maximize occupant comfort while minimizing energy consumption and environmental impact.',
+      additionalSection: {
+        title: 'Title 24 Energy Compliance',
+        description: 'A Title 24 Certificate of Compliance (often Form CF-1R) is a mandatory California document verifying that building designs (new construction, alterations, or additions) meet state Energy Efficiency Standards. We handle the complex compliance calculations and documentation required to obtain your Title 24 Certificate of Compliance smoothly, preventing costly delays in construction and permitting.',
+        features: [
+          'Form CF-1R Preparation & Modeling',
+          'New Construction Energy Compliance',
+          'Alterations & Additions Verification',
+          'Energy Modeling for CA Building Codes',
+          'Permit Documentation'
+        ]
+      }
     },
     electrical: {
       title: 'Electrical Engineering',
@@ -53,6 +71,10 @@ export class ServiceDetailComponent implements OnInit {
         'Interior & Exterior Lighting Design',
         'Emergency & Standby Power Systems',
         'Photovoltaic (Solar) & Energy Storage',
+        'Single Line Diagram',
+        'Power Plans',
+        "Load Caluclation",
+        "Photometrics",
         'Arc Flash Analysis & Mitigation',
         'Fire Alarm System Integration',
         'Low Voltage & Communication Systems',
@@ -70,8 +92,9 @@ export class ServiceDetailComponent implements OnInit {
       features: [
         'Domestic Hot & Cold Water Systems',
         'Sanitary Waste & Vent Design',
-        'Storm Water Management',
         'Natural Gas Piping Systems',
+        'Isometric Diagrams',
+        'Vertical Riser Diagrams',
         'Medical Gas Systems',
         'Greywater & Rainwater Reclaim',
         'Water Heater & Booster Pump Design',

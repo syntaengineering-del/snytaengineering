@@ -34,41 +34,17 @@ export class AboutPageComponent {
             bio: 'Over 20 years of experience in MEP engineering with a focus on sustainable design and energy-efficient building systems.'
         },
         {
-            name: 'Sarah Johnson',
-            role: 'Director of Mechanical Engineering',
-            initials: 'SJ',
-            bio: 'Licensed PE specializing in HVAC system design, central plant optimization, and building automation for large-scale commercial projects.'
-        },
-        {
-            name: 'Michael Torres',
-            role: 'Director of Electrical Engineering',
-            initials: 'MT',
-            bio: 'Expert in power distribution, renewable energy integration, and emergency power systems for mission-critical facilities.'
-        },
-        {
-            name: 'Lisa Chen',
-            role: 'Fire Protection Lead',
-            initials: 'LC',
-            bio: 'NICET certified fire protection engineer with extensive experience in suppression system design and fire alarm integration.'
-        },
-        {
-            name: 'David Kim',
-            role: 'Plumbing Engineering Lead',
-            initials: 'DK',
-            bio: 'Specialist in sustainable water systems, medical gas design, and code-compliant plumbing solutions across multiple building types.'
-        },
-        {
-            name: 'Rebecca Patel',
-            role: 'Project Manager',
-            initials: 'RP',
-            bio: 'PMP certified project manager ensuring on-time and on-budget delivery through meticulous coordination and client communication.'
+            name: 'John Doe',
+            role: 'Partner / Senior Engineer',
+            initials: 'JD',
+            bio: 'Bio coming soon. This is a placeholder profile until the final details are provided.'
         }
     ];
 
     stats = [
-        { value: '500+', label: 'Projects Completed' },
-        { value: '50+', label: 'Team Members' },
-        { value: '15+', label: 'Years Experience' },
+        { value: '150+', label: 'Projects Completed' },
+        { value: '15+', label: 'Team Members' },
+        { value: '25+', label: 'Years Experience' },
         { value: '8', label: 'Market Sectors' }
     ];
 

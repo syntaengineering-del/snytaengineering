@@ -29,6 +29,26 @@
                     </div>
                 </div>
             </div>
+
+            <div *ngIf="service.additionalSection" class="additional-section" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #eaeaea;">
+                <div class="content-grid">
+                    <div class="content-main">
+                        <h2>{{ service.additionalSection.title }}</h2>
+                        <p class="lead">{{ service.additionalSection.description }}</p>
+                    </div>
+                    <div class="content-sidebar" *ngIf="service.additionalSection.features && service.additionalSection.features.length">
+                        <div class="features-card">
+                            <h3>Key Details</h3>
+                            <ul>
+                                <li *ngFor="let feature of service.additionalSection.features">
+                                    <span class="check-icon">&#10003;</span>
+                                    {{ feature }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
