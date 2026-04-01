@@ -47,23 +47,12 @@ export class ServiceDetailComponent implements OnInit {
         'Commissioning Support'
       ],
       details:
-        'Our mechanical engineering team specializes in designing energy-efficient heating, ventilation, and air conditioning systems. We leverage the latest technology and sustainable practices to deliver solutions that maximize occupant comfort while minimizing energy consumption and environmental impact.',
-      additionalSection: {
-        title: 'Title 24 Energy Compliance',
-        description: 'A Title 24 Certificate of Compliance (often Form CF-1R) is a mandatory California document verifying that building designs (new construction, alterations, or additions) meet state Energy Efficiency Standards. We handle the complex compliance calculations and documentation required to obtain your Title 24 Certificate of Compliance smoothly, preventing costly delays in construction and permitting.',
-        features: [
-          'Form CF-1R Preparation & Modeling',
-          'New Construction Energy Compliance',
-          'Alterations & Additions Verification',
-          'Energy Modeling for CA Building Codes',
-          'Permit Documentation'
-        ]
-      }
+        'Our mechanical engineering team specializes in designing energy-efficient heating, ventilation, and air conditioning systems. We leverage the latest technology and sustainable practices to deliver solutions that maximize occupant comfort while minimizing energy consumption and environmental impact.'
     },
     electrical: {
       title: 'Electrical Engineering',
       subtitle: 'Power & Lighting Systems',
-      heroImage: 'assets/images/electrical.png',
+      heroImage: 'assets/images/eleltrical.jpeg',
       description:
         'Our electrical engineering services encompass complete power distribution, interior and exterior lighting design, emergency and standby power systems, photovoltaic and energy storage systems, and arc flash analysis.',
       features: [
@@ -125,7 +114,7 @@ export class ServiceDetailComponent implements OnInit {
     'fire-alarm': {
       title: 'Fire Alarm Design',
       subtitle: 'Detection & Notification',
-      heroImage: 'assets/images/alarm.png',
+      heroImage: 'assets/images/fire alarm.jpeg',
       description:
         'Our fire alarm design services include addressable and intelligent detection systems, voice evacuation, life safety system integration, mass notification, and advanced smoke detection and control.',
       features: [
@@ -140,6 +129,26 @@ export class ServiceDetailComponent implements OnInit {
       ],
       details:
         'SynTa Engineering designs state-of-the-art fire detection and alarm systems that provide early warning and facilitate safe, efficient evacuation during emergencies. Our designs integrate seamlessly with other building life safety systems.'
+    },
+    'energy-compliance': {
+      title: 'Title 24 Energy Compliance',
+      subtitle: 'Energy Excellence & Modeling',
+      heroImage: 'assets/images/mechanical 5.jpeg',
+      description:
+        'Complete energy modeling and compliance documentation to meet the latest California energy efficiency standards and building codes. We ensure your project meets all regulatory requirements while optimizing energy performance.',
+      features: [
+        'Form CF-1R Preparation & Modeling',
+        'New Construction Energy Compliance',
+        'Alterations & Additions Verification',
+        'Energy Modeling for CA Building Codes (T24)',
+        'Building Envelope Analysis',
+        'Mechanical & Lighting Compliance',
+        'Hovey/COMcheck Reports',
+        'Sustainable Design Optimization',
+        'Permit & Regulatory Documentation'
+      ],
+      details:
+        'A Title 24 Certificate of Compliance is a mandatory California document verifying that building designs meet state Energy Efficiency Standards. We handle the complex compliance calculations and documentation required to obtain your certificate smoothly, preventing costly delays in construction and permitting. Our experts use advanced modeling software to find the most cost-effective ways to achieve and exceed compliance requirements.'
     }
   };
 

@@ -38,7 +38,7 @@
                 </p>
             </div>
             <div class="story-image">
-                <img src="assets/images/hero.png" alt="SynTa Engineering Office" />
+                <img src="assets/images/eleltrical.jpeg" alt="SynTa Engineering Office" />
                 <div class="image-accent"></div>
             </div>
         </div>
@@ -122,7 +122,10 @@
         </p>
         <div class="team-grid">
             <div class="team-card" *ngFor="let member of team">
-                <div class="member-avatar">{{ member.initials }}</div>
+                <div class="member-avatar">
+                    <img *ngIf="member.image" [src]="member.image" [alt]="member.name" class="member-photo">
+                    <span *ngIf="!member.image">{{ member.initials }}</span>
+                </div>
                 <h3>{{ member.name }}</h3>
                 <span class="member-role">{{ member.role }}</span>
                 <p>{{ member.bio }}</p>

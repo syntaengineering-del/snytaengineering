@@ -20,5 +20,6 @@ export const routes: Routes = [
     { path: 'plumbing', component: ServiceDetailComponent },
     { path: 'fire-sprinklers', component: ServiceDetailComponent },
     { path: 'fire-alarm', component: ServiceDetailComponent },
+    { path: 'energy-compliance', component: ServiceDetailComponent },
     { path: '**', redirectTo: '' }
 ];

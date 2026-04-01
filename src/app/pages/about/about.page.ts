@@ -14,6 +14,7 @@ interface TeamMember {
     role: string;
     initials: string;
     bio: string;
+    image?: string;
 }
 
 @Component({
@@ -34,10 +35,11 @@ export class AboutPageComponent {
             bio: 'Over 20 years of experience in MEP engineering with a focus on sustainable design and energy-efficient building systems.'
         },
         {
-            name: 'John Doe',
-            role: 'Partner / Senior Engineer',
-            initials: 'JD',
-            bio: 'Bio coming soon. This is a placeholder profile until the final details are provided.'
+            name: 'Tamer Luka, FP.E.',
+            role: 'Senior F/MEP Engineer',
+            initials: 'TL',
+            image: 'assets/images/tamer.jpeg',
+            bio: 'A proactive professional with over a decade of experience in FMEP engineering, specialized in Fire Protection, HVAC, and Plumbing system design. Licensed Professional Engineer (Mechanical & Fire Protection).'
         }
     ];
 

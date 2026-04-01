@@ -110,3 +110,311 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Service Card Image Slider Styles */
+.card-image-slider, 
+.title24-image-slider {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: #000;
+}
+
+.card-image-slider {
+    height: 250px;
+}
+
+.title24-image-slider {
+    flex: 1 1 50%;
+    min-height: 350px;
+}
+
+.slider-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* Luxurious, slow transition for a premium engineering feel */
+    transition: transform 1.0s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.slide {
+    flex: 0 0 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center 20%;
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    background: rgba(11, 28, 63, 0.7);
+    transition: opacity 0.3s ease;
+    z-index: 10;
+    
+    .view-gallery {
+        color: white;
+        border: 2px solid var(--primary-color);
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        transform: translateY(20px);
+        transition: transform 0.4s ease;
+    }
+}
+
+.card-image-slider:hover .card-overlay,
+.title24-image-slider:hover .card-overlay {
+    opacity: 1;
+    .view-gallery { transform: translateY(0); }
+}
+
+.title24-content {
+    flex: 1 1 50%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .tag {
+        background: var(--primary-color);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        width: fit-content;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+    }
+
+    p {
+        color: #475569;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 30px;
+    }
+
+    .actions {
+        display: flex;
+        gap: 15px;
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+            &:hover { background: #0a1733; }
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            &:hover { border-color: var(--primary-color); color: var(--primary-color); }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .title24-container {
+        flex-direction: column;
+    }
+    .title24-image, .title24-content {
+        flex: 1 1 100%;
+    }
+    .title24-content {
+        padding: 30px;
+    }
+}
+
+.gallery-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s;
+
+    &:hover {
+        color: var(--primary-color);
+    }
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.carousel-slide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #000;
+}
+
+.gallery-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    animation: scaleIn 0.5s ease;
+}
+
+.progress-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--primary-color);
+    width: 0;
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+@keyframes progress {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    backdrop-filter: blur(5px);
+
+    &:hover {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    &.prev { left: 20px; }
+    &.next { right: 20px; }
+}
+
+.carousel-dots {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &.active {
+        background: var(--primary-color);
+        transform: scale(1.2);
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.8);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .carousel-container {
+        height: 50vh;
+    }
+    
+    .nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+}

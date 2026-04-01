@@ -11,10 +11,10 @@ import { RouterLink } from '@angular/router';
 })
 export class HeroComponent implements OnInit, OnDestroy {
   images = [
-    '/assets/images/hero.png',
-    '/assets/images/electrical.png',
-    '/assets/images/mechanical.png',
-    '/assets/images/plumbing.png'
+    '/assets/images/hvac 4.jpeg',
+    '/assets/images/fire sprinklers 1.jpeg',
+    '/assets/images/mechanical 7.jpeg',
+    '/assets/images/sprinklers.jpeg'
   ];
   activeIndex = 0;
   private intervalId: any;

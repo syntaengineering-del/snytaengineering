@@ -7,14 +7,59 @@
         </p>
         <div class="services-grid">
             <div class="service-card" *ngFor="let service of services">
-                <div class="card-image" [style.backgroundImage]="'url(' + service.image + ')'">
-                    <div class="card-overlay"></div>
+                <div class="card-image-slider">
+                    <div class="slider-track" 
+                         [style.transform]="'translateX(-' + (service.activeImageIndex * 100) + '%)'"
+                         [style.transition]="service.activeImageIndex === 0 ? 'none' : 'transform 1.0s cubic-bezier(0.23, 1, 0.32, 1)'">
+                        <div *ngFor="let img of service.images; let i = index" 
+                             class="slide" 
+                             [style.backgroundImage]="'url(\'' + img + '\')'"
+                             (click)="openGallery(service.images, i)">
+                        </div>
+                    </div>
+                    <div class="card-overlay" (click)="openGallery(service.images, service.activeImageIndex)">
+                        <span class="view-gallery">View Projects</span>
+                    </div>
                 </div>
                 <div class="card-content">
                     <h3>{{ service.title }}</h3>
                     <p>{{ service.description }}</p>
                     <a [routerLink]="service.link" class="read-more">Learn More &rarr;</a>
                 </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Gallery Modal -->
+    <div class="gallery-modal" *ngIf="showGallery" (click)="closeGallery()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <button class="close-btn" (click)="closeGallery()">
+                <i class="fas fa-times">&times;</i>
+            </button>
+            
+            <div class="carousel-container">
+                <div class="carousel-slide">
+                    <img [src]="galleryImages[currentImageIndex]" alt="Engineering Project" class="gallery-img">
+                    <div class="progress-container" *ngIf="showGallery && galleryReady">
+                        <div class="progress-bar" style="animation: progress 2s linear infinite"></div>
+                    </div>
+                </div>
+                
+                <button class="nav-btn prev" (click)="prevImage()">
+                    <span>&lsaquo;</span>
+                </button>
+                <button class="nav-btn next" (click)="nextImage()">
+                    <span>&rsaquo;</span>
+                </button>
+            </div>
+
+            <div class="carousel-dots">
+                <span class="dot" 
+                      *ngFor="let img of galleryImages; let i = index" 
+                      [class.active]="i === currentImageIndex"
+                      (click)="setCurrentImage(i)">
+                </span>
             </div>
         </div>
     </div>
