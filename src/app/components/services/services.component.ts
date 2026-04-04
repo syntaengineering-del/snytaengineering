@@ -82,6 +82,24 @@ export class ServicesComponent implements OnInit, OnDestroy {
       ],
       link: '/fire-alarm',
       activeImageIndex: 0
+    },
+    {
+      title: 'Title 24 Energy Compliance',
+      description: 'Complete energy modeling and compliance documentation to meet the latest California energy efficiency standards and building codes.',
+      images: [
+        '/assets/images/compliance_1.png',
+        '/assets/images/compliance_2.png',
+        '/assets/images/compliance_3.png',
+        '/assets/images/compliance_4.png',
+        '/assets/images/compliance_5.png',
+        '/assets/images/compliance_6.png',
+        '/assets/images/compliance_7.png',
+        '/assets/images/compliance_8.png',
+        '/assets/images/compliance_9.png',
+        '/assets/images/compliance_10.png'
+      ],
+      link: '/energy-compliance',
+      activeImageIndex: 0
     }
   ];
 
@@ -118,7 +136,17 @@ export class ServicesComponent implements OnInit, OnDestroy {
     '/assets/images/fire alarm.jpeg',
     '/assets/images/mechanical.png',
     '/assets/images/plumbing.png',
-    '/assets/images/sprinkler.png'
+    '/assets/images/sprinkler.png',
+    '/assets/images/compliance_1.png',
+    '/assets/images/compliance_2.png',
+    '/assets/images/compliance_3.png',
+    '/assets/images/compliance_4.png',
+    '/assets/images/compliance_5.png',
+    '/assets/images/compliance_6.png',
+    '/assets/images/compliance_7.png',
+    '/assets/images/compliance_8.png',
+    '/assets/images/compliance_9.png',
+    '/assets/images/compliance_10.png'
   ];
 
   showGallery = false;

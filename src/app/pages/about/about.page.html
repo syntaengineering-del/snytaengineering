@@ -129,6 +129,12 @@
                 <h3>{{ member.name }}</h3>
                 <span class="member-role">{{ member.role }}</span>
                 <p>{{ member.bio }}</p>
+                <div class="certifications" *ngIf="member.certifications">
+                    <h4>Certifications</h4>
+                    <ul>
+                        <li *ngFor="let cert of member.certifications">{{ cert }}</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

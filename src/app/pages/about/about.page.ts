@@ -15,6 +15,7 @@ interface TeamMember {
     initials: string;
     bio: string;
     image?: string;
+    certifications?: string[];
 }
 
 @Component({
@@ -36,10 +37,17 @@ export class AboutPageComponent {
         },
         {
             name: 'Tamer Luka, FP.E.',
-            role: 'Senior F/MEP Engineer',
+            role: 'CEO/ Principal Engineer',
             initials: 'TL',
             image: 'assets/images/tamer.jpeg',
-            bio: 'A proactive professional with over a decade of experience in FMEP engineering, specialized in Fire Protection, HVAC, and Plumbing system design. Licensed Professional Engineer (Mechanical & Fire Protection).'
+            bio: 'A proactive professional with over a decade of experience in FMEP engineering, specialized in Fire Protection, HVAC, and Plumbing system design.',
+            certifications: [
+                'Licensed Professional Engineer (Mechanical). (CA, USA)',
+                'Licensed Professional Engineer (Fire Protection). (CA, USA)',
+                'Certified in Plumbing Design. (CPD)',
+                'Certified Sprinklers ITM Specialist (CSITMS) for Facility Managers. (NFPA25)',
+                'Certified Mechanical Plan Examiner (M3). (ICC)'
+            ]
         }
     ];
 
