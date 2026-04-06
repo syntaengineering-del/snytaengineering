@@ -95,8 +95,7 @@ export class ServicesComponent implements OnInit, OnDestroy {
         '/assets/images/compliance_6.png',
         '/assets/images/compliance_7.png',
         '/assets/images/compliance_8.png',
-        '/assets/images/compliance_9.png',
-        '/assets/images/compliance_10.png'
+        '/assets/images/compliance_9.png'
       ],
       link: '/energy-compliance',
       activeImageIndex: 0
@@ -145,9 +144,8 @@ export class ServicesComponent implements OnInit, OnDestroy {
     '/assets/images/compliance_6.png',
     '/assets/images/compliance_7.png',
     '/assets/images/compliance_8.png',
-    '/assets/images/compliance_9.png',
-    '/assets/images/compliance_10.png'
-  ];
+    '/assets/images/compliance_9.png'
+   ];
 
   showGallery = false;
   galleryReady = true;
